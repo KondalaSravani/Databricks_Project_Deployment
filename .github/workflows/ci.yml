@@ -20,4 +20,4 @@ jobs:
           databricks-bundle-env: prod
           authentication-type: token
           databricks-token: ${{ secrets.BUNDLE_DEPLOY }}
-          run: databricks bundle deploy -t prod --force-lock --auto-approve
+          run: databricks bundle deploy -t prod --mode=dev --auto-approve

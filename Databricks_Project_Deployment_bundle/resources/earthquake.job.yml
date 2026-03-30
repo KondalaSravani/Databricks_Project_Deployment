@@ -28,3 +28,4 @@ resources:
         - name: catalog_name
           default: ${var.catalog}
       performance_target: PERFORMANCE_OPTIMIZED
+

@@ -46,3 +46,4 @@ targets:
     permissions:
       - user_name: kondalasravani551@gmail.com
         level: CAN_MANAGE
+

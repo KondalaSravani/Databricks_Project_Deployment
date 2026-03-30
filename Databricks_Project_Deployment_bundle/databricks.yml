@@ -1,0 +1,48 @@
+# This is a Databricks asset bundle definition for Databricks_Project_Deployment_bundle.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: Databricks_Project_Deployment_bundle
+  uuid: a1e04338-a6af-486b-bc37-086873815c2f
+
+include:
+  - resources/*.yml
+
+# Variable declarations. These variables are assigned in the dev/prod targets below.
+variables:
+  catalog:
+    description: The catalog to use
+  schema:
+    description: The schema to use
+  warehouse_id:
+    description: WarehouseID
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-50d24c68-58ab.cloud.databricks.com
+    variables:
+      catalog: testproject_dev
+      schema: dev
+      warehouse_id: e0045679a42a6aa4
+    presets:
+      artifacts_dynamic_version: true
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-50d24c68-58ab.cloud.databricks.com
+      # We explicitly deploy to /Workspace/Users/kondalasravani551@gmail.com to make sure we only have a single copy.
+      root_path: /Workspace/Databricks_Project_Deployment
+        #/Workspace/Users/kondalasravani551@gmail.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: testproject_prod
+      schema: prod
+      warehouse_id: e0045679a42a6aa4
+    permissions:
+      - user_name: kondalasravani551@gmail.com
+        level: CAN_MANAGE
